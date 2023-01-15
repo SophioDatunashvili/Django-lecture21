@@ -6,9 +6,8 @@ class Lecturer(models.Model):
     surname = models.CharField(max_length=150)
     picture = models.ImageField(upload_to="lecturer/", blank=True, null=True)
 
-
     def __str__(self):
-        return self.surname
+        return f"{self.name} {self.surname}"
 
 
 class Subject(models.Model):
@@ -17,8 +16,5 @@ class Subject(models.Model):
     duration = models.CharField(max_length=150)
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, related_name="subjects")
 
-
     def __str__(self):
-        self.name
-
-
+        return self.name

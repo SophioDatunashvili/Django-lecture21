@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Lecturer(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=150)
     picture = models.ImageField(upload_to="lecturer/", blank=True, null=True)
@@ -11,6 +12,7 @@ class Lecturer(models.Model):
 
 
 class Subject(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150)
     start_date = models.DateField()
     duration = models.CharField(max_length=150)

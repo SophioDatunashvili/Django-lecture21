@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ lecturer }}</title>
+</head>
+<body>
+    {% if lecturer.picture %}
+        <img src="{{ lecturer.picture.url }}" alt="">
+    
+    {% endif %} 
+    <h1>{{ lecturer.name }} {{ lecturer.surname }}</h1>
+    <h2>lectures: </h2>
+    <ul>
+        {% for subject in lecturer.subjects.all %}
+            <li><a href="{%  url "subject-detail" subject.pk%}">{{ subject }}</a></li>
+        {% endfor %}
+        
+    </ul>
+        
+    <a href="{% url "lecturer-update" lecturer.pk %}">Edit</a>
+    <form action="{% url "lecturer-delete" lecturer.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>

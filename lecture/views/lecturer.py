@@ -1,22 +1,54 @@
+from django.urls import reverse, reverse_lazy
+
 from lecture.models import Lecturer
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from lecture.forms import LecturerForm
+from django.views.generic import (
+    CreateView,
+    ListView,
+    DetailView,
+    UpdateView,
+    DeleteView
+)
 
 
-def create(request):
-    pass
+class Create(CreateView):
+    model = Lecturer
+    fields = "__all__"
+
+    def get_success_url(self):
+        return reverse("lecturer-detail", args=[self.object.pk])
+
+    template_name = "lecturer/create.html"
 
 
-def list_all(request):
-    pass
+class List(ListView):
+    model = Lecturer
+
+    context_object_name = "lecturers"
+    template_name = "lecturer/list.html"
 
 
-def detail(request, pk):
-    pass
+class Detail(DetailView):
+    model = Lecturer
+    context_object_name = "lecturer"
+    template_name = "lecturer/detail.html"
 
 
-def update(request, pk):
-    pass
+class Update(UpdateView):
+    model = Lecturer
+    fields = "__all__"
+
+    def get_success_url(self):
+        return reverse("lecturer-detail", args=[self.object.pk])
+
+    template_name = "lecturer/update.html"
 
 
-def delete(request, pk):
-    pass
+class Delete(DeleteView):
+    model = Lecturer
+
+    success_url = reverse_lazy("lecturer-list")
+
+    def get(self, request, *args, **kwargs):
+        return redirect("lecturer-list")
